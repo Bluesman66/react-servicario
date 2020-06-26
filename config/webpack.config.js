@@ -301,6 +301,7 @@ module.exports = function (webpackEnv) {
 				pages: path.resolve(__dirname, '../src/pages/'),
         components: path.resolve(__dirname, '../src/components/'),
         store: path.resolve(__dirname, '../src/store/'),
+        actions: path.resolve(__dirname, '../src/actions/'),
 				...(modules.webpackAliases || {}),
 			},
 			plugins: [

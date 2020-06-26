@@ -3,9 +3,10 @@
 import { Hero, ServiceItem } from 'components';
 import React, { useEffect, useState } from 'react';
 
+import { connect } from 'react-redux'; // HOC
 import { getServices } from 'store';
 
-const Home = () => {
+const Home = ({ test }) => {
 	const [state, setState] = useState({
 		services: [],
 	});
@@ -21,6 +22,7 @@ const Home = () => {
 		));
 
 	const { services } = state;
+	const { testingData, testingNumber } = test;
 
 	return (
 		<div>
@@ -44,4 +46,6 @@ const Home = () => {
 	);
 };
 
-export default Home;
+const mapStateToProps = (state) => ({ test: state.service });
+
+export default connect(mapStateToProps)(Home);
