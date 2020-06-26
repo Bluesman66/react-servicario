@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import { Hero, Navbar, NavbarClone, ServiceItem } from 'components';
+import { Hero, ServiceItem } from 'components';
 import React, { useEffect, useState } from 'react';
 
 import { getServices } from 'store';
@@ -24,10 +24,7 @@ const Home = () => {
 
 	return (
 		<div>
-			<Navbar />
-			<NavbarClone />
 			<Hero />
-
 			<section className="section section-feature-grey is-medium">
 				<div className="container">
 					<div className="title-wrapper has-text-centered">
