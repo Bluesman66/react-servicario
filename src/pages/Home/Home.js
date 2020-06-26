@@ -4,16 +4,18 @@ import { Hero, ServiceItem } from 'components';
 import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux'; // HOC
-import { getServices } from 'store';
+import { fetchServices } from 'actions';
 
-const Home = ({ test }) => {
+const Home = (props) => {
+  console.log(props);
+  
 	const [state, setState] = useState({
 		services: [],
 	});
 
 	useEffect(() => {
-		const services = getServices();
-		setState({ services });
+		props.dispatch(fetchServices());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const renderServices = (services) =>
@@ -21,8 +23,7 @@ const Home = ({ test }) => {
 			<ServiceItem key={service.id} service={service} />
 		));
 
-	const { services } = state;
-	const { testingData, testingNumber } = test;
+	const { services } = props;
 
 	return (
 		<div>
@@ -46,6 +47,6 @@ const Home = ({ test }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ test: state.service });
+const mapStateToProps = (state) => ({ services: state.service.items });
 
 export default connect(mapStateToProps)(Home);
