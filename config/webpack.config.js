@@ -303,7 +303,8 @@ module.exports = function (webpackEnv) {
 				store: path.resolve(__dirname, '../src/store/'),
 				actions: path.resolve(__dirname, '../src/actions/'),
         types: path.resolve(__dirname, '../src/types/'),
-        reducers: path.resolve(__dirname, '../src/reducers/'),
+				reducers: path.resolve(__dirname, '../src/reducers/'),
+				db: path.resolve(__dirname, '../src/db/'),
 				...(modules.webpackAliases || {}),
 			},
 			plugins: [

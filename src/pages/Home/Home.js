@@ -1,18 +1,12 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import { Hero, ServiceItem } from 'components';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux'; // HOC
 import { fetchServices } from 'actions';
 
 const Home = (props) => {
-  console.log(props);
-  
-	const [state, setState] = useState({
-		services: [],
-	});
-
 	useEffect(() => {
 		props.dispatch(fetchServices());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
