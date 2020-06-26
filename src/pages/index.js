@@ -1,3 +1,3 @@
-import HomePage from './HomePage/HomePage';
+import Home from './Home/Home';
 
-export { HomePage };
+export { Home };

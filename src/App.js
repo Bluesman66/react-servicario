@@ -1,4 +1,4 @@
-import { HomePage } from 'pages';
+import { Home as HomePage } from 'pages';
 import React from 'react';
 import { Sidebar } from 'components';
 
