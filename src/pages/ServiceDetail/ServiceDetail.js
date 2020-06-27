@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 
+import { Spinner } from 'components';
 import { connect } from 'react-redux';
 import { fetchServiceById } from 'actions';
 import { useParams } from 'react-router-dom';
@@ -15,6 +16,10 @@ const ServiceDetail = (props) => {
 	}, [serviceId, dispatch]);
 
 	const { service } = props;
+
+	if (true) {
+		return <Spinner />;
+	}
 
 	return (
 		<section className="hero is-fullheight is-default is-bold">
