@@ -1,10 +1,20 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { connect } from 'react-redux';
+import { fetchServiceById } from 'actions';
 import { useParams } from 'react-router-dom';
 
-const ServiceDetail = () => {
+const ServiceDetail = (props) => {
 	const { serviceId } = useParams();
+	const { dispatch } = props;
+
+	useEffect(() => {
+		dispatch(fetchServiceById(serviceId));
+	}, [serviceId, dispatch]);
+
+	const { service } = props;
 
 	return (
 		<section className="hero is-fullheight is-default is-bold">
@@ -13,30 +23,19 @@ const ServiceDetail = () => {
 					<div className="columns is-vcentered">
 						<div className="column is-5">
 							<figure className="image is-4by3">
-								<img src="" alt="Description" />
+								<img src={service.image} alt="Description" />
 							</figure>
 						</div>
 						<div className="column is-6 is-offset-1">
-							<h1 className="title is-2">Hardcoded Title</h1>
-							<h2 className="subtitle is-4">Hardcoded Description</h2>
+							<h1 className="title is-2">{service.title}</h1>
+							<h2 className="subtitle is-4">{service.description}</h2>
 							<br />
 							<p className="has-text-centered">
-								<a className="button is-medium is-info is-outlined">
+								<button className="button is-medium is-info is-outlined">
 									Learn more
-								</a>
+								</button>
 							</p>
 						</div>
-					</div>
-				</div>
-			</div>
-			<div className="hero-foot">
-				<div className="container">
-					<div className="tabs is-centered">
-						<ul>
-							<li>
-								<a>And this is the bottom</a>
-							</li>
-						</ul>
 					</div>
 				</div>
 			</div>
@@ -44,4 +43,6 @@ const ServiceDetail = () => {
 	);
 };
 
-export default ServiceDetail;
+const mapStateToProps = (state) => ({ service: state.selectedService.item });
+
+export default connect(mapStateToProps)(ServiceDetail);
