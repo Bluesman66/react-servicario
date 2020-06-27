@@ -14,8 +14,12 @@ export const fetchServices = () => (dispatch) =>
 		})
 	);
 
-export const fetchServiceById = (serviceId) => (dispatch) => {
-	dispatch({ type: FETCH_SERVICE_SUCCESS, service: {} });
+export const fetchServiceById = (serviceId) => (dispatch, getState) => {
+	const lastService = getState().selectedService.item;
+	if (lastService.id && lastService.id === serviceId) {
+		return Promise.resolve();
+	}
+
 	dispatch({ type: REQUEST_SERVICE });
 	return api.fetchServiceById(serviceId).then((service) =>
 		dispatch({
