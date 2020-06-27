@@ -302,9 +302,10 @@ module.exports = function (webpackEnv) {
 				components: path.resolve(__dirname, '../src/components/'),
 				store: path.resolve(__dirname, '../src/store/'),
 				actions: path.resolve(__dirname, '../src/actions/'),
-        types: path.resolve(__dirname, '../src/types/'),
+				types: path.resolve(__dirname, '../src/types/'),
 				reducers: path.resolve(__dirname, '../src/reducers/'),
 				db: path.resolve(__dirname, '../src/db/'),
+				api: path.resolve(__dirname, '../src/api/'),
 				...(modules.webpackAliases || {}),
 			},
 			plugins: [
