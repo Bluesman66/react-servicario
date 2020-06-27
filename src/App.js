@@ -1,6 +1,7 @@
 import {
 	Faq as FaqPage,
 	Profile as ProfilePage,
+	ServiceDetail as ServiceDetailPage,
 	Services as ServicesPage,
 } from 'pages';
 import {
@@ -28,6 +29,7 @@ function App() {
 					<Switch>
 						<Route path="/register" component={RegisterPage} />
 						<Route path="/login" component={LoginPage} />
+						<Route path="/services/:serviceId" component={ServiceDetailPage} />
 						<Route path="/services" component={ServicesPage} />
 						<Route path="/profile" component={ProfilePage} />
 						<Route path="/faq" component={FaqPage} />
