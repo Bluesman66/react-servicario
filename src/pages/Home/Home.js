@@ -9,7 +9,7 @@ import { fetchServices } from 'actions';
 const Home = (props) => {
 	useEffect(() => {
 		props.dispatch(fetchServices());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const renderServices = (services) =>
