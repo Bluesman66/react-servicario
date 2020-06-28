@@ -1,11 +1,12 @@
 /* eslint no-useless-escape: 0 */
 
+import { isValidImage, isValidUrl, sameAs } from 'helpers/validators';
+
 import React from 'react';
-import { isValidImage } from 'helpers/validators';
 import { useForm } from 'react-hook-form';
 
 const RegisterForm = () => {
-	const { register, handleSubmit, errors } = useForm();
+	const { register, handleSubmit, errors, getValues } = useForm();
 
 	const getFormData = (data) => {
 		console.log('SUBMITING DATA');
@@ -67,7 +68,10 @@ const RegisterForm = () => {
 			<div className="field">
 				<div className="control">
 					<input
-						ref={register({ required: true, validate: { isValidImage } })}
+						ref={register({
+							required: true,
+							validate: { isValidImage, isValidUrl },
+						})}
 						name="avatar"
 						className="input is-large"
 						type="text"
@@ -82,6 +86,9 @@ const RegisterForm = () => {
 								<span className="help is-danger">
 									Avatar extenstion is not valid
 								</span>
+							)}
+							{errors.avatar.type === 'isValidUrl' && (
+								<span className="help is-danger">Avatar url is not valid</span>
 							)}
 						</div>
 					)}
@@ -114,7 +121,11 @@ const RegisterForm = () => {
 			<div className="field">
 				<div className="control">
 					<input
-						ref={register({ required: true, minLength: 6 })}
+						ref={register({
+							required: true,
+							minLength: 6,
+							validate: { sameAs: sameAs(getValues, 'password') },
+						})}
 						name="passwordConfirmation"
 						className="input is-large"
 						type="password"
@@ -131,6 +142,11 @@ const RegisterForm = () => {
 							{errors.passwordConfirmation.type === 'minLength' && (
 								<span className="help is-danger">
 									Minimum length is 6 characters
+								</span>
+							)}
+							{errors.passwordConfirmation.type === 'sameAs' && (
+								<span className="help is-danger">
+									Password confirmation is not the same as password
 								</span>
 							)}
 						</div>
