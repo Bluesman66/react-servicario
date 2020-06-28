@@ -306,6 +306,7 @@ module.exports = function (webpackEnv) {
 				reducers: path.resolve(__dirname, '../src/reducers/'),
 				db: path.resolve(__dirname, '../src/db/'),
 				api: path.resolve(__dirname, '../src/api/'),
+				auth: path.resolve(__dirname, '../src/components/auth/'),
 				...(modules.webpackAliases || {}),
 			},
 			plugins: [

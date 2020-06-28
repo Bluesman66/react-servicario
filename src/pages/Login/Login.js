@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from 'react';
 
@@ -12,7 +11,7 @@ const Login = () => {
 					<p className="subtitle has-text-grey">Please login to proceed.</p>
 					<div className="box">
 						<figure className="avatar">
-							<img src="https://placehold.it/128x128" />
+							<img src="https://placehold.it/128x128" alt="Company Logo" />
 						</figure>
 						<form>
 							<div className="field">
@@ -21,8 +20,7 @@ const Login = () => {
 										className="input is-large"
 										type="email"
 										placeholder="Your Email"
-										autofocus=""
-										autocomplete="email"
+										autoComplete="email"
 									/>
 									<div className="form-error">
 										<span className="help is-danger">Email is required</span>
@@ -38,7 +36,7 @@ const Login = () => {
 										className="input is-large"
 										type="password"
 										placeholder="Your Password"
-										autocomplete="current-password"
+										autoComplete="current-password"
 									/>
 									<div className="form-error">
 										<span className="help is-danger">Password is required</span>
