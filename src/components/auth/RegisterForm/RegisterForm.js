@@ -1,6 +1,7 @@
 /* eslint no-useless-escape: 0 */
 
 import React from 'react';
+import { isValidImage } from 'helpers/validators';
 import { useForm } from 'react-hook-form';
 
 const RegisterForm = () => {
@@ -66,10 +67,7 @@ const RegisterForm = () => {
 			<div className="field">
 				<div className="control">
 					<input
-						ref={register({
-							required: true,
-							pattern: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm,
-						})}
+						ref={register({ required: true, validate: { isValidImage } })}
 						name="avatar"
 						className="input is-large"
 						type="text"
@@ -80,8 +78,10 @@ const RegisterForm = () => {
 							{errors.avatar.type === 'required' && (
 								<span className="help is-danger">Avatar is required</span>
 							)}
-							{errors.avatar.type === 'pattern' && (
-								<span className="help is-danger">Avatar url is not valid</span>
+							{errors.avatar.type === 'isValidImage' && (
+								<span className="help is-danger">
+									Avatar extenstion is not valid
+								</span>
 							)}
 						</div>
 					)}

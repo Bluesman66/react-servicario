@@ -307,6 +307,7 @@ module.exports = function (webpackEnv) {
 				db: path.resolve(__dirname, '../src/db/'),
 				api: path.resolve(__dirname, '../src/api/'),
 				auth: path.resolve(__dirname, '../src/components/auth/'),
+				helpers: path.resolve(__dirname, '../src/helpers/'),
 				...(modules.webpackAliases || {}),
 			},
 			plugins: [
