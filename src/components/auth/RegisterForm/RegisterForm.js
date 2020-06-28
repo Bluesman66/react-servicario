@@ -5,16 +5,11 @@ import { isValidImage, isValidUrl, sameAs } from 'helpers/validators';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-const RegisterForm = () => {
+const RegisterForm = (props) => {
 	const { register, handleSubmit, errors, getValues } = useForm();
 
-	const getFormData = (data) => {
-		console.log('SUBMITING DATA');
-		console.log(data);
-	};
-
 	return (
-		<form onSubmit={handleSubmit(getFormData)}>
+		<form onSubmit={handleSubmit(props.onRegister)}>
 			<div className="field">
 				<div className="control">
 					<input

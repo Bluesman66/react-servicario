@@ -28,3 +28,12 @@ export const fetchServiceById = (serviceId) => (dispatch, getState) => {
 		})
 	);
 };
+
+export const register = (registerFormData) => (dispatch) => {
+	return api.register({ ...registerFormData }).then(
+		(_) => {
+			return true;
+		},
+		(errorMessage) => Promise.reject(errorMessage)
+	);
+};
