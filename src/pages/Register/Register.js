@@ -2,14 +2,17 @@
 
 import React from 'react';
 import { RegisterForm } from 'components';
-import { connect } from 'react-redux';
 import { register } from 'actions';
 
 const Register = (props) => {
 	const registerUser = (userData) => {
-		props.dispatch(register(userData)).then(
-			(_) => {},
-			(errorMessage) => {}
+		register(userData).then(
+			(_) => {
+				debugger;
+			},
+			(errorMessage) => {
+				debugger;
+			}
 		);
 	};
 
@@ -36,4 +39,4 @@ const Register = (props) => {
 	);
 };
 
-export default connect()(Register);
+export default Register;
