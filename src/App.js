@@ -1,19 +1,7 @@
-import {
-	Faq as FaqPage,
-	Profile as ProfilePage,
-	ServiceDetail as ServiceDetailPage,
-	Services as ServicesPage,
-} from 'pages';
-import {
-	Home as HomePage,
-	Login as LoginPage,
-	Register as RegisterPage,
-} from 'pages';
-import { Navbar, NavbarClone, Sidebar } from 'components';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-
 import { Provider } from 'react-redux';
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import ServiceApp from './ServiceApp';
 import { ToastProvider } from 'react-toast-notifications';
 import initStore from 'store';
 
@@ -24,18 +12,7 @@ function App() {
 		<Provider store={store}>
 			<ToastProvider>
 				<Router>
-					<Navbar id="navbar-clone" />
-					<NavbarClone />
-					<Sidebar />
-					<Switch>
-						<Route path="/register" component={RegisterPage} />
-						<Route path="/login" component={LoginPage} />
-						<Route path="/services/:serviceId" component={ServiceDetailPage} />
-						<Route path="/services" component={ServicesPage} />
-						<Route path="/profile" component={ProfilePage} />
-						<Route path="/faq" component={FaqPage} />
-						<Route exact path="/" component={HomePage} />
-					</Switch>
+					<ServiceApp />
 				</Router>
 			</ToastProvider>
 		</Provider>

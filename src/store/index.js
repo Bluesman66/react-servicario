@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 const initStore = () => {
 	const middlewares = [thunk];
 	const composeEnhancers =
-		window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE__ || compose;
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 	if (process.env.NODE_ENV !== 'production') {
 		middlewares.push(logger);
@@ -15,12 +15,7 @@ const initStore = () => {
 
 	const store = createStore(
 		serviceApp,
-		composeEnhancers(
-			applyMiddleware(...middlewares),
-			window.__REDUX_DEVTOOLS_EXTENSION__
-				? window.__REDUX_DEVTOOLS_EXTENSION__()
-				: (f) => f
-		)
+		composeEnhancers(applyMiddleware(...middlewares))
 	);
 
 	return store;
