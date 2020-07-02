@@ -1,19 +1,22 @@
-import { Navbar, Sidebar } from 'components';
+import { Navbar, Sidebar, Spinner } from 'components';
 
 import React from 'react';
 import Routes from './Routes';
+import { connect } from 'react-redux';
 
-const ServiceApp = () => {
-	const renderApplication = () => (
+const ServiceApp = ({ auth }) => {
+	const renderApplication = (auth) => (
 		<React.Fragment>
-			<Navbar />
-			<Navbar id="navbar-clone" />
+			<Navbar auth={auth} />
+			<Navbar auth={auth} id="navbar-clone" />
 			<Sidebar />
 			<Routes />
 		</React.Fragment>
 	);
 
-	return renderApplication();
+	return auth.isAuthResolved ? renderApplication(auth) : <Spinner />;
 };
 
-export default ServiceApp;
+const mapStateToProps = (state) => ({ auth: state.auth });
+
+export default connect(mapStateToProps)(ServiceApp);
