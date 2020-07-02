@@ -1,20 +1,34 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import React from 'react';
+import React, { useState } from 'react';
+
+import { Redirect } from 'react-router-dom';
 import { RegisterForm } from 'components';
 import { register } from 'actions';
+import { useToasts } from 'react-toast-notifications';
+
+// import { withRouter } from 'react-router-dom'
 
 const Register = (props) => {
+	const [redirect, setRedirect] = useState(false);
+	const { addToast } = useToasts();
+
 	const registerUser = (userData) => {
+		// props.history.push('/')
 		register(userData).then(
-			(_) => {
-				debugger;
-			},
-			(errorMessage) => {
-				debugger;
-			}
+			(_) => setRedirect(true),
+			(errorMessage) =>
+				addToast(errorMessage, {
+					appearance: 'error',
+					autoDismiss: true,
+					autoDismissTimeout: 3000,
+				})
 		);
 	};
+
+	if (redirect) {
+		return <Redirect to="/" />;
+	}
 
 	return (
 		<div className="auth-page">
@@ -39,4 +53,5 @@ const Register = (props) => {
 	);
 };
 
+// export default withRouter(Register)
 export default Register;

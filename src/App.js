@@ -14,14 +14,15 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import React from 'react';
+import { ToastProvider } from 'react-toast-notifications';
 import initStore from 'store';
 
 const store = initStore();
 
 function App() {
 	return (
-		<div>
-			<Provider store={store}>
+		<Provider store={store}>
+			<ToastProvider>
 				<Router>
 					<Navbar id="navbar-clone" />
 					<NavbarClone />
@@ -36,8 +37,8 @@ function App() {
 						<Route exact path="/" component={HomePage} />
 					</Switch>
 				</Router>
-			</Provider>
-		</div>
+			</ToastProvider>
+		</Provider>
 	);
 }
 
