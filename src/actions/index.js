@@ -38,6 +38,9 @@ export const login = (loginData) => api.login({ ...loginData });
 export const onAuthStateChanged = (onAuthCallback) =>
 	api.onAuthStateChanged(onAuthCallback);
 
+export const logout = () => (dispatch) =>
+	api.logout().then((_) => dispatch({ user: null, type: SET_AUTH_USER }));
+
 export const storeAuthUser = (authUser) => (dispatch) => {
 	if (authUser) {
 		return api

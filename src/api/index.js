@@ -58,6 +58,8 @@ export const login = ({ email, password }) =>
 		.signInWithEmailAndPassword(email, password)
 		.catch((error) => Promise.reject(error.message));
 
+export const logout = () => firebase.auth().signOut();
+
 export const onAuthStateChanged = (onAuthCallback) =>
 	firebase.auth().onAuthStateChanged(onAuthCallback);
 
