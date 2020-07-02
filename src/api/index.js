@@ -51,3 +51,9 @@ export const register = async ({ email, password, fullName, avatar }) => {
 		return Promise.reject(error.message);
 	}
 };
+
+export const login = ({ email, password }) =>
+	firebase
+		.auth()
+		.signInWithEmailAndPassword(email, password)
+		.catch((error) => Promise.reject(error.message));
