@@ -3,8 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const withAuthorization = (Component) => {
-	const WithAuthorization = ({ auth, dispatch, ...rest }) => {
-		return auth.isAuth ? <Component {...rest} /> : <Redirect to="/login" />;
+	const WithAuthorization = (props) => {
+		const { auth } = props;
+		return auth.isAuth ? <Component {...props} /> : <Redirect to="/login" />;
 	};
 
 	// const mapStateToProps = (state) => ({auth: state.auth}) -->
