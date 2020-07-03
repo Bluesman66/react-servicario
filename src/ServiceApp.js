@@ -10,7 +10,7 @@ const ServiceApp = ({ auth, dispatch }) => {
 
 	const renderApplication = (auth) => (
 		<React.Fragment>
-			<Navbar logout={handleLogout} auth={auth} />
+			<Navbar auth={auth} logout={handleLogout} id="navbar-main" />
 			<Navbar auth={auth} logout={handleLogout} id="navbar-clone" />
 			<Sidebar />
 			<Routes />
