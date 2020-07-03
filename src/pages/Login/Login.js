@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import { login } from 'actions';
+import { onlyGuest } from 'components';
 import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
 
@@ -82,4 +83,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default onlyGuest(Login);

@@ -1,22 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const withAuthorization = (Component) => {
-	const WithAuthorization = () => {
-		const [state, setState] = useState({
-			secretData: 'Hello World SECRET!!!!',
-			secretNumber: 98777967,
-		});
-
-		const someSuperFunctionality = () => {
-			alert('I AM SUPER');
-		};
-
-		return (
-			<Component {...state} someSuperFunctionality={someSuperFunctionality} />
-		);
+	const WithAuthorization = ({ auth, dispatch, ...rest }) => {
+		return auth.isAuth ? <Component {...rest} /> : <Redirect to="/login" />;
 	};
 
-	return WithAuthorization;
+	// const mapStateToProps = (state) => ({auth: state.auth}) -->
+	// const mapStateToProps = ({auth}) => ({auth}) -->
+	// ({auth}) => ({auth})
+	return connect(({ auth }) => ({ auth }))(WithAuthorization);
 };
 
 export default withAuthorization;

@@ -1,9 +1,9 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React, { useState } from 'react';
+import { RegisterForm, onlyGuest } from 'components';
 
 import { Redirect } from 'react-router-dom';
-import { RegisterForm } from 'components';
 import { register } from 'actions';
 import { useToasts } from 'react-toast-notifications';
 
@@ -54,4 +54,4 @@ const Register = (props) => {
 };
 
 // export default withRouter(Register)
-export default Register;
+export default onlyGuest(Register);
