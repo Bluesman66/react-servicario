@@ -9,11 +9,11 @@ import { useParams } from 'react-router-dom';
 
 const ServiceDetail = (props) => {
 	const { serviceId } = useParams();
-	const { dispatch, isFetching } = props;
+	const { fetchServiceById, isFetching } = props;
 
 	useEffect(() => {
-		dispatch(fetchServiceById(serviceId));
-	}, [serviceId, dispatch]);
+		fetchServiceById(serviceId);
+	}, [fetchServiceById, serviceId]);
 
 	const { service } = props;
 
@@ -53,4 +53,4 @@ const mapStateToProps = ({ selectedService }) => ({
 	isFetching: selectedService.isFetching,
 });
 
-export default connect(mapStateToProps)(ServiceDetail);
+export default connect(mapStateToProps, { fetchServiceById })(ServiceDetail);

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { onAuthStateChanged, resetAuthState, storeAuthUser } from 'actions';
+import { onAuthStateChanged, storeAuthUser } from 'actions';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -12,7 +12,6 @@ const store = initStore();
 const App = () => {
 	useEffect(() => {
 		const unsubscribeAuth = onAuthStateChanged((authUser) => {
-			store.dispatch(resetAuthState());
 			store.dispatch(storeAuthUser(authUser));
 		});
 		return () => {

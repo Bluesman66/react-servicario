@@ -8,8 +8,8 @@ import { fetchServices } from 'actions';
 
 const Home = (props) => {
 	useEffect(() => {
-		props.dispatch(fetchServices());
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		props.fetchServices();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const renderServices = (services) =>
@@ -43,4 +43,4 @@ const Home = (props) => {
 
 const mapStateToProps = (state) => ({ services: state.services.all });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, { fetchServices })(Home);
