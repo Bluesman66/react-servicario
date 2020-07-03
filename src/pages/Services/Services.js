@@ -1,5 +1,7 @@
 import React from 'react';
 
-const Services = () => <h1>I am Services Page</h1>;
+const Services = () => {
+	return <div>I'm a Services page!</div>;
+};
 
 export default Services;

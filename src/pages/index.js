@@ -4,18 +4,20 @@ import Login from './Login/Login';
 import Profile from './Profile/Profile';
 import Register from './Register/Register';
 import Secret from './Secret/Secret';
-import ServiceCreate from './Services/ServiceCreate';
+import ServiceCreate from './services/ServiceCreate';
 import ServiceDetail from './ServiceDetail/ServiceDetail';
-import Services from './Services/Services';
+import Services from './services/Services';
+import UserServices from './services/UserServices';
 
 export {
 	Home,
 	Faq,
 	Profile,
-	Services,
+	UserServices,
 	Login,
 	Register,
 	ServiceDetail,
 	Secret,
 	ServiceCreate,
+	Services,
 };

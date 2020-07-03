@@ -8,6 +8,7 @@ import {
 	ServiceCreate as ServiceCreatePage,
 	ServiceDetail as ServiceDetailPage,
 	Services as ServicesPage,
+	UserServices as UserServicesPage,
 } from 'pages';
 import { Route, Switch } from 'react-router-dom';
 
@@ -18,6 +19,7 @@ const Routes = () => (
 		<Route path="/secret" component={SecretPage} />
 		<Route path="/register" component={RegisterPage} />
 		<Route path="/login" component={LoginPage} />
+		<Route path="/services/me" component={UserServicesPage} />
 		<Route path="/services/new" component={ServiceCreatePage} />
 		<Route path="/services/:serviceId" component={ServiceDetailPage} />
 		<Route path="/services" component={ServicesPage} />

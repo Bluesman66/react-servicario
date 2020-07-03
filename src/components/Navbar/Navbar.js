@@ -12,6 +12,7 @@ const Navbar = (props) => {
 		if (!loadFresh) {
 			return;
 		}
+
 		const script = document.createElement('script');
 		script.src = `${process.env.PUBLIC_URL}/js/fresh.js`;
 		script.async = true;
@@ -110,15 +111,19 @@ const Navbar = (props) => {
 						<Link to="/faq" className="navbar-item is-secondary">
 							Faq
 						</Link>
-						<div className="navbar-item has-dropdown is-hoverable">
-							<a className="navbar-link">Dropdown</a>
-
-							<div className="navbar-dropdown">
-								<a className="navbar-item">Dropdown item</a>
-								<a className="navbar-item">Dropdown item</a>
-								<a className="navbar-item">Dropdown item</a>
+						{isAuth && (
+							<div className="navbar-item has-dropdown is-hoverable">
+								<a className="navbar-link">Manage</a>
+								<div className="navbar-dropdown">
+									<Link to="/services/new" className="navbar-item">
+										Create Service
+									</Link>
+									<Link to="/services/me" className="navbar-item">
+										Your Services
+									</Link>
+								</div>
 							</div>
-						</div>
+						)}
 						{!isAuth && (
 							<React.Fragment>
 								<Link
