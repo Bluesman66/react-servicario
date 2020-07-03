@@ -5,6 +5,7 @@ import RegisterForm from './auth/RegisterForm/RegisterForm';
 import ServiceItem from './ServiceItem/ServiceItem';
 import Sidebar from './Sidebar/Sidebar';
 import Spinner from './Spinner/Spinner';
+import withAuthorization from './hoc/withAuthorization';
 
 export {
 	Navbar,
@@ -14,4 +15,5 @@ export {
 	ServiceItem,
 	Spinner,
 	RegisterForm,
+	withAuthorization,
 };

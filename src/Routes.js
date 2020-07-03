@@ -4,6 +4,7 @@ import {
 	Login as LoginPage,
 	Profile as ProfilePage,
 	Register as RegisterPage,
+	Secret as SecretPage,
 	ServiceDetail as ServiceDetailPage,
 	Services as ServicesPage,
 } from 'pages';
@@ -13,6 +14,7 @@ import React from 'react';
 
 const Routes = () => (
 	<Switch>
+		<Route path="/secret" component={SecretPage} />
 		<Route path="/register" component={RegisterPage} />
 		<Route path="/login" component={LoginPage} />
 		<Route path="/services/:serviceId" component={ServiceDetailPage} />
