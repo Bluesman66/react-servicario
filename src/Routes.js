@@ -5,6 +5,7 @@ import {
 	Profile as ProfilePage,
 	Register as RegisterPage,
 	Secret as SecretPage,
+	ServiceCreate as ServiceCreatePage,
 	ServiceDetail as ServiceDetailPage,
 	Services as ServicesPage,
 } from 'pages';
@@ -17,6 +18,7 @@ const Routes = () => (
 		<Route path="/secret" component={SecretPage} />
 		<Route path="/register" component={RegisterPage} />
 		<Route path="/login" component={LoginPage} />
+		<Route path="/services/new" component={ServiceCreatePage} />
 		<Route path="/services/:serviceId" component={ServiceDetailPage} />
 		<Route path="/services" component={ServicesPage} />
 		<Route path="/profile" component={ProfilePage} />
