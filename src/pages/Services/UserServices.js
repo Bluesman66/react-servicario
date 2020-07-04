@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { ServiceItem, withAuthorization } from 'components';
 
-import { connect } from 'react-redux';
 import { fetchUserServices } from 'actions';
 
 const UserServices = (props) => {
+	const { services } = props.auth.user;
+
 	useEffect(() => {
 		const {
 			auth: { user },
@@ -14,23 +15,24 @@ const UserServices = (props) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const { services } = props;
 	return (
-		<div className="container">
-			<div className="content-wrapper">
-				<h1 className="title">Your Services</h1>
-				<div className="columns is-multiline">
-					{services.map((s) => (
-						<div key={s.id} className="column">
-							<ServiceItem service={s} />
+		<Fragment>
+			{services && (
+				<div className="container">
+					<div className="content-wrapper">
+						<h1 className="title">Your Services</h1>
+						<div className="columns is-multiline">
+							{services.map((s) => (
+								<div key={s.id} className="column">
+									<ServiceItem service={s} />
+								</div>
+							))}
 						</div>
-					))}
+					</div>
 				</div>
-			</div>
-		</div>
+			)}
+		</Fragment>
 	);
 };
 
-const mapStateToProps = ({ user }) => ({ services: user.services });
-
-export default withAuthorization(connect(mapStateToProps)(UserServices));
+export default withAuthorization(UserServices);
