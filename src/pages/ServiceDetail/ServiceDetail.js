@@ -1,4 +1,4 @@
-import { Modal, Spinner } from 'components';
+import { OfferModal, Spinner } from 'components';
 import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
@@ -33,9 +33,9 @@ const ServiceDetail = (props) => {
 							<h1 className="title is-2">{service.title}</h1>
 							<h2 className="subtitle is-4">{service.description}</h2>
 							<br />
-							<p className="has-text-centered">
-								<Modal openButtonText="Make an offer" />
-							</p>
+							<div className="has-text-centered">
+								<OfferModal service={service} />
+							</div>
 						</div>
 					</div>
 				</div>
