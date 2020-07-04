@@ -3,6 +3,7 @@ import * as api from 'api';
 import {
 	FETCH_SERVICES_SUCCESS,
 	FETCH_SERVICE_SUCCESS,
+	FETCH_USER_SERVICES_SUCCESS,
 	REQUEST_SERVICE,
 	RESET_AUTH_STATE,
 	SET_AUTH_USER,
@@ -18,7 +19,12 @@ export const fetchServices = () => (dispatch) =>
 		})
 	);
 
-export const fetchUserServices = (userId) => api.fetchUserServices(userId);
+export const fetchUserServices = (userId) => (dispatch) =>
+	api
+		.fetchUserServices(userId)
+		.then((services) =>
+			dispatch({ type: FETCH_USER_SERVICES_SUCCESS, services })
+		);
 
 export const fetchServiceById = (serviceId) => (dispatch, getState) => {
 	const lastService = getState().selectedService.item;
@@ -48,9 +54,7 @@ export const createService = (newService, userId) => {
 
 export const register = (registerFormData) =>
 	api.register({ ...registerFormData });
-
 export const login = (loginData) => api.login({ ...loginData });
-
 export const onAuthStateChanged = (onAuthCallback) =>
 	api.onAuthStateChanged(onAuthCallback);
 
