@@ -1,8 +1,6 @@
-/* eslint jsx-a11y/anchor-is-valid: 0 */
-
+import { Modal, Spinner } from 'components';
 import React, { useEffect } from 'react';
 
-import { Spinner } from 'components';
 import { connect } from 'react-redux';
 import { fetchServiceById } from 'actions';
 import { useParams } from 'react-router-dom';
@@ -13,7 +11,7 @@ const ServiceDetail = (props) => {
 
 	useEffect(() => {
 		fetchServiceById(serviceId);
-	}, [fetchServiceById, serviceId]);
+	}, [serviceId, fetchServiceById]);
 
 	const { service } = props;
 
@@ -36,9 +34,7 @@ const ServiceDetail = (props) => {
 							<h2 className="subtitle is-4">{service.description}</h2>
 							<br />
 							<p className="has-text-centered">
-								<button className="button is-medium is-info is-outlined">
-									Learn more
-								</button>
+								<Modal openButtonText="Make an offer" />
 							</p>
 						</div>
 					</div>

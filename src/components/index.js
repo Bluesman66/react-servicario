@@ -1,4 +1,5 @@
 import Hero from './Hero/Hero';
+import Modal from './Modal/Modal';
 import Navbar from './Navbar/Navbar';
 import NavbarClone from './NavbarClone/NavbarClone';
 import RegisterForm from './auth/RegisterForm/RegisterForm';
@@ -18,4 +19,5 @@ export {
 	RegisterForm,
 	withAuthorization,
 	onlyGuest,
+	Modal,
 };
