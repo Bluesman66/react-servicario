@@ -5,7 +5,7 @@ import {
 } from 'types';
 
 const INITIAL_STATE = {
-	user: null,
+	user: { services: [] },
 	isAuth: false,
 	isAuthResolved: false,
 };

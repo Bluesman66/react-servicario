@@ -20,6 +20,7 @@ const ServiceApp = ({ auth, dispatch }) => {
 	return auth.isAuthResolved ? renderApplication(auth) : <Spinner />;
 };
 
-const mapStateToProps = (state) => ({ auth: state.auth });
-
-export default connect(mapStateToProps)(ServiceApp);
+// const mapStateToProps = (state) => ({ auth: state.auth }); -->
+// const mapStateToProps = ({ auth }) => ({ auth }); -->
+// ({ auth }) => ({ auth })
+export default connect(({ auth }) => ({ auth }))(ServiceApp);

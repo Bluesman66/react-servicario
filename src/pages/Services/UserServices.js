@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { ServiceItem, withAuthorization } from 'components';
 
 import { fetchUserServices } from 'actions';
@@ -16,22 +16,18 @@ const UserServices = (props) => {
 	}, []);
 
 	return (
-		<Fragment>
-			{services && (
-				<div className="container">
-					<div className="content-wrapper">
-						<h1 className="title">Your Services</h1>
-						<div className="columns is-multiline">
-							{services.map((s) => (
-								<div key={s.id} className="column">
-									<ServiceItem service={s} />
-								</div>
-							))}
+		<div className="container">
+			<div className="content-wrapper">
+				<h1 className="title">Your Services</h1>
+				<div className="columns is-multiline">
+					{services.map((s) => (
+						<div key={s.id} className="column">
+							<ServiceItem service={s} />
 						</div>
-					</div>
+					))}
 				</div>
-			)}
-		</Fragment>
+			</div>
+		</div>
 	);
 };
 
