@@ -29,7 +29,7 @@ const ReceivedOffers = (props) => {
 								<div className="service-offer">
 									<div>
 										<span className="label">From User:</span>{' '}
-										{offer.toUser.fullName}
+										{offer.fromUser.fullName}
 									</div>
 									<div>
 										<span className="label">Note:</span> {offer.note}
