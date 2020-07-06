@@ -3,8 +3,10 @@ import {
 	Home as HomePage,
 	Login as LoginPage,
 	Profile as ProfilePage,
+	ReceivedOffers as ReceivedOffersPage,
 	Register as RegisterPage,
 	Secret as SecretPage,
+	SentOffers as SentOffersPage,
 	ServiceCreate as ServiceCreatePage,
 	ServiceDetail as ServiceDetailPage,
 	Services as ServicesPage,
@@ -19,6 +21,8 @@ const Routes = () => (
 		<Route path="/secret" component={SecretPage} />
 		<Route path="/register" component={RegisterPage} />
 		<Route path="/login" component={LoginPage} />
+		<Route path="/offers/sent" component={SentOffersPage} />
+		<Route path="/offers/received" component={ReceivedOffersPage} />
 		<Route path="/services/me" component={UserServicesPage} />
 		<Route path="/services/new" component={ServiceCreatePage} />
 		<Route path="/services/:serviceId" component={ServiceDetailPage} />
