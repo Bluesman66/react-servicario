@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { ServiceItem, withAuthorization } from 'components';
+import { collaborate, fetchSentOffers } from 'actions';
 import { newCollaboration, newMessage } from 'helpers/offers';
 
 import { connect } from 'react-redux';
-import { fetchSentOffers } from 'actions';
 
 const SentOffers = (props) => {
 	useEffect(() => {
@@ -18,6 +18,10 @@ const SentOffers = (props) => {
 		} = props;
 		const collaboration = newCollaboration({ offer, fromUser: user });
 		const message = newMessage({ offer, fromUser: user });
+
+		collaborate({ collaboration, message }).then((_) =>
+			alert('Collaboration was Created!')
+		);
 	};
 
 	const { offers } = props;
