@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { ServiceItem, withAuthorization } from 'components';
+import { changeOfferStatus, fetchReceivedOffers } from 'actions';
 
 import { connect } from 'react-redux';
-import { fetchReceivedOffers } from 'actions';
 
 const ReceivedOffers = (props) => {
 	useEffect(() => {
 		const { auth } = props;
-		props.dispatch(fetchReceivedOffers(auth.user.uid));
+		props.fetchReceivedOffers(auth.user.uid);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const acceptOffer = (offer) => {
-		console.log(`Accepting ${offer}`);
+	const acceptOffer = (offerId) => {
+		props.changeOfferStatus(offerId, 'accepted');
 	};
 
-	const declineOffer = (offer) => {
-		console.log(`Declining ${offer}`);
+	const declineOffer = (offerId) => {
+		props.changeOfferStatus(offerId, 'declined');
 	};
 
 	const statusClass = (status) => {
@@ -26,6 +26,7 @@ const ReceivedOffers = (props) => {
 	};
 
 	const { offers } = props;
+
 	return (
 		<div className="container">
 			<div className="content-wrapper">
@@ -61,13 +62,13 @@ const ReceivedOffers = (props) => {
 									<div>
 										<hr />
 										<button
-											onClick={() => acceptOffer(offer)}
+											onClick={() => acceptOffer(offer.id)}
 											className="button is-success s-m-r"
 										>
 											Accept
 										</button>
 										<button
-											onClick={() => declineOffer(offer)}
+											onClick={() => declineOffer(offer.id)}
 											className="button is-danger"
 										>
 											Decline
@@ -85,4 +86,11 @@ const ReceivedOffers = (props) => {
 
 const mapStateToProps = ({ offers }) => ({ offers: offers.received });
 
-export default withAuthorization(connect(mapStateToProps)(ReceivedOffers));
+const mapDispatchToProps = () => ({
+	changeOfferStatus,
+	fetchReceivedOffers,
+});
+
+export default withAuthorization(
+	connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers)
+);
