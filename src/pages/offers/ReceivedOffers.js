@@ -86,11 +86,9 @@ const ReceivedOffers = (props) => {
 
 const mapStateToProps = ({ offers }) => ({ offers: offers.received });
 
-const mapDispatchToProps = () => ({
-	changeOfferStatus,
-	fetchReceivedOffers,
-});
-
 export default withAuthorization(
-	connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers)
+	connect(mapStateToProps, {
+		changeOfferStatus,
+		fetchReceivedOffers,
+	})(ReceivedOffers)
 );

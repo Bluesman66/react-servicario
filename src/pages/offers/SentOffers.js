@@ -4,6 +4,7 @@ import { collaborate, fetchSentOffers } from 'actions';
 import { newCollaboration, newMessage } from 'helpers/offers';
 
 import { connect } from 'react-redux';
+import { withToastManager } from 'react-toast-notifications';
 
 const SentOffers = (props) => {
 	useEffect(() => {
@@ -15,12 +16,17 @@ const SentOffers = (props) => {
 	const createCollaboration = (offer) => {
 		const {
 			auth: { user },
+			toastManager,
 		} = props;
+
 		const collaboration = newCollaboration({ offer, fromUser: user });
 		const message = newMessage({ offer, fromUser: user });
 
-		collaborate({ collaboration, message }).then((_) =>
-			alert('Collaboration was Created!')
+		props.collaborate({ collaboration, message }).then((_) =>
+			toastManager.add('Collaboration was Created!', {
+				appearance: 'success',
+				autoDismiss: true,
+			})
 		);
 	};
 
@@ -54,7 +60,7 @@ const SentOffers = (props) => {
 										<span className="label">Time:</span> {offer.time} hours
 									</div>
 								</div>
-								{offer.status === 'accepted' && (
+								{offer.status === 'accepted' && !offer.collaborationCreated && (
 									<div>
 										<hr />
 										<button
@@ -75,5 +81,8 @@ const SentOffers = (props) => {
 };
 
 const mapStateToProps = ({ offers }) => ({ offers: offers.sent });
+const SentOffersWithToast = withToastManager(SentOffers);
 
-export default withAuthorization(connect(mapStateToProps)(SentOffers));
+export default withAuthorization(
+	connect(mapStateToProps, { collaborate })(SentOffersWithToast)
+);
