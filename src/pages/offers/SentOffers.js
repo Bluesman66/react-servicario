@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { ServiceItem, withAuthorization } from 'components';
+import { newCollaboration, newMessage } from 'helpers/offers';
 
 import { connect } from 'react-redux';
 import { fetchSentOffers } from 'actions';
@@ -10,6 +11,14 @@ const SentOffers = (props) => {
 		props.dispatch(fetchSentOffers(auth.user.uid));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const createCollaboration = (offer) => {
+		const {
+			auth: { user },
+		} = props;
+		const collaboration = newCollaboration({ offer, fromUser: user });
+		const message = newMessage({ offer, fromUser: user });
+	};
 
 	const { offers } = props;
 	return (
@@ -41,6 +50,17 @@ const SentOffers = (props) => {
 										<span className="label">Time:</span> {offer.time} hours
 									</div>
 								</div>
+								{offer.status === 'accepted' && (
+									<div>
+										<hr />
+										<button
+											onClick={() => createCollaboration(offer)}
+											className="button is-success"
+										>
+											Collaborate
+										</button>
+									</div>
+								)}
 							</ServiceItem>
 						</div>
 					))}

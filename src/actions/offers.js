@@ -9,6 +9,7 @@ const extractDataFromOffer = async (offer, userType) => {
 	const user = await offer[userType].get();
 
 	offer.service = service.data();
+	offer.service.id = service.id;
 	offer[userType] = user.data();
 
 	return offer;
@@ -44,31 +45,37 @@ export const fetchReceivedOffers = (userId) => (dispatch) => {
 };
 
 export const acceptOffer = (offerId) => (dispatch) =>
-	api.changeOfferStatus(offerId, 'accepted').then((_) =>
-		dispatch({
-			type: CHANGE_OFFER_STATUS,
-			status: 'accepted',
-			offerId,
-			offersType: 'received',
-		})
-	);
+	api
+		.changeOfferStatus(offerId, 'accepted')
+		.then((_) =>
+			dispatch({
+				type: CHANGE_OFFER_STATUS,
+				status: 'accepted',
+				offerId,
+				offersType: 'received',
+			})
+		);
 
 export const declineOffer = (offerId) => (dispatch) =>
-	api.changeOfferStatus(offerId, 'declined').then((_) =>
-		dispatch({
-			type: CHANGE_OFFER_STATUS,
-			offerId,
-			status: 'declined',
-			offersType: 'received',
-		})
-	);
+	api
+		.changeOfferStatus(offerId, 'declined')
+		.then((_) =>
+			dispatch({
+				type: CHANGE_OFFER_STATUS,
+				offerId,
+				status: 'declined',
+				offersType: 'received',
+			})
+		);
 
 export const changeOfferStatus = (offerId, status) => (dispatch) =>
-	api.changeOfferStatus(offerId, status).then((_) =>
-		dispatch({
-			type: CHANGE_OFFER_STATUS,
-			offerId,
-			status,
-			offersType: 'received',
-		})
-	);
+	api
+		.changeOfferStatus(offerId, status)
+		.then((_) =>
+			dispatch({
+				type: CHANGE_OFFER_STATUS,
+				offerId,
+				status,
+				offersType: 'received',
+			})
+		);
