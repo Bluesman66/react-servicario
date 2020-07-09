@@ -1,5 +1,9 @@
-import React, { useEffect } from 'react';
-import { onAuthStateChanged, storeAuthUser } from 'actions';
+import React, { useEffect, useRef } from 'react';
+import {
+	onAuthStateChanged,
+	storeAuthUser,
+	subscribeToMessages,
+} from 'actions';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -10,12 +14,23 @@ import initStore from 'store';
 const store = initStore();
 
 const App = () => {
+	const unsubscribeAuth = useRef(null);
+	const unsubscribeMessages = useRef(null);
+
 	useEffect(() => {
-		const unsubscribeAuth = onAuthStateChanged((authUser) => {
+		unsubscribeAuth.current = onAuthStateChanged((authUser) => {
 			store.dispatch(storeAuthUser(authUser));
+			if (authUser) {
+				unsubscribeMessages.current = store.dispatch(
+					subscribeToMessages(authUser.uid)
+				);
+			}
 		});
 		return () => {
-			unsubscribeAuth();
+			unsubscribeAuth.current();
+			if (unsubscribeMessages.current) {
+				unsubscribeMessages.current();
+			}
 		};
 	}, []);
 
