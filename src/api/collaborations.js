@@ -25,3 +25,11 @@ export const subscribeToMessages = (userId, callback) =>
 			}));
 			callback(messages);
 		});
+
+export const markMessageAsRead = (message) =>
+	db
+		.collection('profiles')
+		.doc(message.toUser)
+		.collection('messages')
+		.doc(message.id)
+		.update({ isRead: true });
