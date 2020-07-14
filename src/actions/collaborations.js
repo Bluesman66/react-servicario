@@ -3,7 +3,6 @@ import * as api from 'api';
 import {
 	COLLABORATION_CREATED_FROM_OFFER,
 	FETCH_USER_MESSAGES_SUCCESS,
-	MARK_MESSAGE_AS_READ,
 } from 'types';
 
 export const collaborate = ({ collaboration, message }) => (dispatch) =>
