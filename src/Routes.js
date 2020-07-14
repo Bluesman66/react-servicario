@@ -1,4 +1,5 @@
 import {
+	CollaborationDetail as CollaborationDetailPage,
 	Faq as FaqPage,
 	Home as HomePage,
 	Login as LoginPage,
@@ -23,6 +24,7 @@ const Routes = () => (
 		<Route path="/register" component={RegisterPage} />
 		<Route path="/login" component={LoginPage} />
 		<Route path="/collaborations/me" component={ReceivedCollaborationsPage} />
+		<Route path="/collaborations/:id" component={CollaborationDetailPage} />
 		<Route path="/offers/sent" component={SentOffersPage} />
 		<Route path="/offers/received" component={ReceivedOffersPage} />
 		<Route path="/services/me" component={UserServicesPage} />

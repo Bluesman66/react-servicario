@@ -1,3 +1,4 @@
+import CollaborationDetail from './collaborations/CollaborationDetail';
 import Faq from './Faq/Faq';
 import Home from './Home/Home';
 import Login from './Login/Login';
@@ -26,4 +27,5 @@ export {
 	ReceivedOffers,
 	SentOffers,
 	ReceivedCollaborations,
+	CollaborationDetail,
 };
