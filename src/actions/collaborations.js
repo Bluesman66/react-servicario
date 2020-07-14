@@ -28,3 +28,5 @@ export const subscribeToMessages = (userId) => (dispatch) =>
 //      .then(_ => dispatch({type: MARK_MESSAGE_AS_READ, messageId: message.id}))
 
 export const markMessageAsRead = (message) => api.markMessageAsRead(message);
+
+export const fetchCollaborations = (userId) => api.fetchCollaborations(userId);

@@ -3,6 +3,7 @@ import {
 	Home as HomePage,
 	Login as LoginPage,
 	Profile as ProfilePage,
+	ReceivedCollaborations as ReceivedCollaborationsPage,
 	ReceivedOffers as ReceivedOffersPage,
 	Register as RegisterPage,
 	Secret as SecretPage,
@@ -21,6 +22,7 @@ const Routes = () => (
 		<Route path="/secret" component={SecretPage} />
 		<Route path="/register" component={RegisterPage} />
 		<Route path="/login" component={LoginPage} />
+		<Route path="/collaborations/me" component={ReceivedCollaborationsPage} />
 		<Route path="/offers/sent" component={SentOffersPage} />
 		<Route path="/offers/received" component={ReceivedOffersPage} />
 		<Route path="/services/me" component={UserServicesPage} />
