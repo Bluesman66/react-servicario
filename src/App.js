@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import {
+	checkUserConnection,
 	onAuthStateChanged,
 	storeAuthUser,
 	subscribeToMessages,
@@ -21,6 +22,7 @@ const App = () => {
 		unsubscribeAuth.current = onAuthStateChanged((authUser) => {
 			store.dispatch(storeAuthUser(authUser));
 			if (authUser) {
+				checkUserConnection(authUser.uid);
 				unsubscribeMessages.current = store.dispatch(
 					subscribeToMessages(authUser.uid)
 				);
