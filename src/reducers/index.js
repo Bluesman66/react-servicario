@@ -1,4 +1,5 @@
 import auth from './auth';
+import collaboration from './collaboration';
 import { combineReducers } from 'redux';
 import offers from './offers';
 import selectedService from './selectedService';
@@ -9,6 +10,7 @@ const serviceApp = combineReducers({
 	selectedService,
 	auth,
 	offers,
+	collaboration,
 });
 
 export const getMessages = (state) => state.auth.user.messages;
