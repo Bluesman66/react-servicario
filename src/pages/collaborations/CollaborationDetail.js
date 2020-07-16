@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { joinCollaboration, subToCollaboration } from 'actions';
+import { joinCollaboration, subToCollaboration, subToProfile } from 'actions';
 import { useParams, withRouter } from 'react-router-dom';
 
 import { JoinedPeople } from 'components';
@@ -8,6 +8,8 @@ import { withAuthorization } from 'components';
 
 const CollaborationDetail = (props) => {
 	const unsubscribeFromCollab = useRef(null);
+	const peopleWatchers = useRef(null);
+
 	const { id } = useParams();
 	const { user } = props.auth;
 
@@ -16,12 +18,27 @@ const CollaborationDetail = (props) => {
 		watchCollabChanges(id);
 		return () => {
 			unsubscribeFromCollab.current();
+			Object.keys(peopleWatchers.current).forEach((uid) =>
+				peopleWatchers.current[uid]()
+			);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const watchCollabChanges = (id) => {
-		unsubscribeFromCollab.current = props.subToCollaboration(id);
+		unsubscribeFromCollab.current = props.subToCollaboration(
+			id,
+			({ joinedPeople }) => {
+				watchJoinedPeopleChanges(joinedPeople.map((jp) => jp.id));
+			}
+		);
+	};
+
+	const watchJoinedPeopleChanges = (ids) => {
+		peopleWatchers.current = {};
+		ids.forEach((id) => {
+			peopleWatchers.current[id] = subToProfile(id);
+		});
 	};
 
 	const { collaboration, joinedPeople } = props;
