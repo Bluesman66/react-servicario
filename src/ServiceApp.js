@@ -6,12 +6,21 @@ import { connect } from 'react-redux';
 import { logout } from 'actions';
 
 const ServiceApp = ({ auth, dispatch }) => {
-	const handleLogout = () => dispatch(logout());
+	const handleLogout = (uid) => dispatch(logout(uid));
 
 	const renderApplication = (auth) => (
 		<React.Fragment>
-			<Navbar auth={auth} logout={handleLogout} id="navbar-main" loadFresh />
-			<Navbar auth={auth} logout={handleLogout} id="navbar-clone" />
+			<Navbar
+				auth={auth}
+				logout={() => handleLogout(auth.user.uid)}
+				id="navbar-main"
+				loadFresh
+			/>
+			<Navbar
+				auth={auth}
+				logout={() => handleLogout(auth.user.uid)}
+				id="navbar-clone"
+			/>
 			<Sidebar />
 			<Routes />
 		</React.Fragment>
