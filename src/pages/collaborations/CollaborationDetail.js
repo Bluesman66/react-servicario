@@ -1,15 +1,18 @@
 import React, { useEffect, useRef } from 'react';
+import { joinCollaboration, subToCollaboration } from 'actions';
 import { useParams, withRouter } from 'react-router-dom';
 
+import { JoinedPeople } from 'components';
 import { connect } from 'react-redux';
-import { subToCollaboration } from 'actions';
 import { withAuthorization } from 'components';
 
 const CollaborationDetail = (props) => {
 	const unsubscribeFromCollab = useRef(null);
 	const { id } = useParams();
+	const { user } = props.auth;
 
 	useEffect(() => {
+		joinCollaboration(id, user.uid);
 		watchCollabChanges(id);
 		return () => {
 			unsubscribeFromCollab.current();
@@ -28,17 +31,7 @@ const CollaborationDetail = (props) => {
 				<h1 className="title">{collaboration.title}</h1>
 				<div className="body">
 					<div className="viewListUser">
-						<div className="viewWrapItem">
-							<img
-								className="viewAvatarItem"
-								src="https://i.imgur.com/cVDadwb.png"
-								alt="icon avatar"
-							/>
-							<div className="viewWrapContentItem">
-								<span className="textItem">Nickname: Filip Jerga</span>
-								<span className="textItem">online</span>
-							</div>
-						</div>
+						<JoinedPeople users={joinedPeople} />
 					</div>
 					<div className="viewBoard">
 						<div className="viewChatBoard">

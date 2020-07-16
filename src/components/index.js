@@ -1,4 +1,5 @@
 import Hero from './Hero/Hero';
+import JoinedPeople from './collaboration/JoinedPeople';
 import Modal from './Modal/Modal';
 import Navbar from './Navbar/Navbar';
 import NavbarClone from './NavbarClone/NavbarClone';
@@ -24,4 +25,5 @@ export {
 	Modal,
 	OfferModal,
 	ReceivedMessages,
+	JoinedPeople,
 };
