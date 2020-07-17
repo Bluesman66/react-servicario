@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
 	joinCollaboration,
 	leaveCollaboration,
@@ -9,20 +9,29 @@ import { useParams, withRouter } from 'react-router-dom';
 
 import { JoinedPeople } from 'components';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { withAuthorization } from 'components';
 
 const CollaborationDetail = (props) => {
+	const [state, setState] = useState({
+		inputValue: '',
+	});
+
 	const unsubscribeFromCollab = useRef(null);
 	const peopleWatchers = useRef(null);
 
 	const { id } = useParams();
 	const { user } = props.auth;
+	const { collaboration, joinedPeople } = props;
+	const { inputValue } = state;
 
 	useEffect(() => {
 		joinCollaboration(id, user.uid);
 		watchCollabChanges(id);
 		return () => {
-			unsubscribeFromCollab.current();
+			if (unsubscribeFromCollab.current) {
+				unsubscribeFromCollab.current();
+			}
 			Object.keys(peopleWatchers.current).forEach((uid) =>
 				peopleWatchers.current[uid]()
 			);
@@ -30,6 +39,33 @@ const CollaborationDetail = (props) => {
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	const onKeyboardPress = (e) => {
+		if (e.key === 'Enter') {
+			onSendMessage(inputValue);
+		}
+	};
+
+	const onSendMessage = (inputValue) => {
+		if (inputValue.trim() === '') {
+			return;
+		}
+
+		const timestamp = moment().valueOf().toString();
+
+		const message = {
+			user: {
+				uid: user.uid,
+				avatar: user.avatar,
+				name: user.fullName,
+			},
+			timestamp: parseInt(timestamp, 10),
+			content: inputValue.trim(),
+		};
+
+		alert(`Seding message: ${JSON.stringify(message)}`);
+		setState({ inputValue: '' });
+	};
 
 	const watchCollabChanges = (id) => {
 		unsubscribeFromCollab.current = props.subToCollaboration(
@@ -47,7 +83,6 @@ const CollaborationDetail = (props) => {
 		});
 	};
 
-	const { collaboration, joinedPeople } = props;
 	return (
 		<div className="content-wrapper">
 			<div className="root">
@@ -87,10 +122,18 @@ const CollaborationDetail = (props) => {
 							</div>
 							<div className="viewBottom">
 								<input
-									onChange={() => {}}
+									onChange={(e) => setState({ inputValue: e.target.value })}
+									onKeyPress={onKeyboardPress}
+									value={inputValue}
 									className="viewInput"
 									placeholder="Type your message..."
 								/>
+								<button
+									onClick={() => onSendMessage(inputValue)}
+									className="button is-primary is-large"
+								>
+									Send
+								</button>
 							</div>
 						</div>
 					</div>
