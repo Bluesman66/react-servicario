@@ -1,3 +1,4 @@
+import { ChatMessages, JoinedPeople, withAuthorization } from 'components';
 import React, { useEffect, useRef, useState } from 'react';
 import {
 	joinCollaboration,
@@ -9,10 +10,8 @@ import {
 } from 'actions';
 import { useParams, withRouter } from 'react-router-dom';
 
-import { JoinedPeople } from 'components';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { withAuthorization } from 'components';
 
 const CollaborationDetail = (props) => {
 	const [state, setState] = useState({
@@ -25,7 +24,7 @@ const CollaborationDetail = (props) => {
 
 	const { id } = useParams();
 	const { user } = props.auth;
-	const { collaboration, joinedPeople } = props;
+	const { collaboration, joinedPeople, messages } = props;
 	const { inputValue } = state;
 
 	useEffect(() => {
@@ -100,7 +99,6 @@ const CollaborationDetail = (props) => {
 	return (
 		<div className="content-wrapper">
 			<div className="root">
-				<h1 className="title">{collaboration.title}</h1>
 				<div className="body">
 					<div className="viewListUser">
 						<JoinedPeople users={joinedPeople} />
@@ -113,25 +111,10 @@ const CollaborationDetail = (props) => {
 									src="https://i.imgur.com/cVDadwb.png"
 									alt="icon avatar"
 								/>
-								<span className="textHeaderChatBoard">Filip Jerga</span>
+								<span className="textHeaderChatBoard">{user.fullName}</span>
 							</div>
 							<div className="viewListContentChat">
-								<div className="viewWrapItemLeft">
-									<div className="viewWrapItemLeft3">
-										<img
-											src="https://i.imgur.com/cVDadwb.png"
-											alt="avatar"
-											className="peerAvatarLeft"
-										/>
-										<div className="viewItemLeft">
-											<span className="textContentItem">hey</span>
-										</div>
-									</div>
-									<span className="textTimeLeft">Oct 31, 2019</span>
-								</div>
-								<div className="viewItemRight">
-									<span className="textContentItem">hey</span>
-								</div>
+								<ChatMessages authUser={user} messages={messages} />
 								<div style={{ float: 'left', clear: 'both' }}></div>
 							</div>
 							<div className="viewBottom">
@@ -157,10 +140,11 @@ const CollaborationDetail = (props) => {
 	);
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ collaboration }) => {
 	return {
-		collaboration: state.collaboration.joined,
-		joinedPeople: state.collaboration.joinedPeople,
+		collaboration: collaboration.joined,
+		joinedPeople: collaboration.joinedPeople,
+		messages: collaboration.messages,
 	};
 };
 

@@ -1,3 +1,4 @@
+import ChatMessages from './collaboration/ChatMessages';
 import Hero from './Hero/Hero';
 import JoinedPeople from './collaboration/JoinedPeople';
 import Modal from './Modal/Modal';
@@ -26,4 +27,5 @@ export {
 	OfferModal,
 	ReceivedMessages,
 	JoinedPeople,
+	ChatMessages,
 };
