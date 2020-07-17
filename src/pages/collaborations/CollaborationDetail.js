@@ -1,5 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { joinCollaboration, subToCollaboration, subToProfile } from 'actions';
+import {
+	joinCollaboration,
+	leaveCollaboration,
+	subToCollaboration,
+	subToProfile,
+} from 'actions';
 import { useParams, withRouter } from 'react-router-dom';
 
 import { JoinedPeople } from 'components';
@@ -21,6 +26,7 @@ const CollaborationDetail = (props) => {
 			Object.keys(peopleWatchers.current).forEach((uid) =>
 				peopleWatchers.current[uid]()
 			);
+			leaveCollaboration(id, user.uid);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
