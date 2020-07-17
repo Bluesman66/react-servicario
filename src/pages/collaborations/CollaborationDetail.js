@@ -37,7 +37,7 @@ const CollaborationDetail = (props) => {
 	const watchJoinedPeopleChanges = (ids) => {
 		peopleWatchers.current = {};
 		ids.forEach((id) => {
-			peopleWatchers.current[id] = subToProfile(id);
+			peopleWatchers.current[id] = props.subToProfile(id);
 		});
 	};
 
@@ -96,6 +96,7 @@ const CollaborationDetail = (props) => {
 
 const mapDispatchToProps = () => ({
 	subToCollaboration,
+	subToProfile,
 });
 
 const mapStateToProps = (state) => {
