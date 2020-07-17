@@ -1,6 +1,7 @@
 import {
 	SET_COLLABORATION,
 	SET_COLLABORATION_JOINED_PEOPLE,
+	SET_COLLABORATION_MESSAGES,
 	UPDATE_COLLABORATION_USER,
 } from 'types';
 
@@ -41,6 +42,15 @@ const initCollab = () => {
 
 	const messages = (state = [], action) => {
 		switch (action.type) {
+			case SET_COLLABORATION_MESSAGES:
+				const newMessages = [...state];
+
+				action.messages.forEach((change) => {
+					if ((change.type = 'added')) {
+						newMessages.push({ id: change.doc.id, ...change.doc.data() });
+					}
+				});
+				return newMessages;
 			default:
 				return state;
 		}

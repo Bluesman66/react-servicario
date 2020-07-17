@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
 	joinCollaboration,
 	leaveCollaboration,
+	sendChatMessage,
 	subToCollaboration,
+	subToMessages,
 	subToProfile,
 } from 'actions';
 import { useParams, withRouter } from 'react-router-dom';
@@ -18,6 +20,7 @@ const CollaborationDetail = (props) => {
 	});
 
 	const unsubscribeFromCollab = useRef(null);
+	const unsubscribeFromMessages = useRef(null);
 	const peopleWatchers = useRef(null);
 
 	const { id } = useParams();
@@ -28,9 +31,13 @@ const CollaborationDetail = (props) => {
 	useEffect(() => {
 		joinCollaboration(id, user.uid);
 		watchCollabChanges(id);
+		watchMessagesChanges(id);
 		return () => {
 			if (unsubscribeFromCollab.current) {
 				unsubscribeFromCollab.current();
+			}
+			if (unsubscribeFromMessages.current) {
+				unsubscribeFromMessages.current();
 			}
 			Object.keys(peopleWatchers.current).forEach((uid) =>
 				peopleWatchers.current[uid]()
@@ -63,8 +70,11 @@ const CollaborationDetail = (props) => {
 			content: inputValue.trim(),
 		};
 
-		alert(`Seding message: ${JSON.stringify(message)}`);
-		setState({ inputValue: '' });
+		sendChatMessage({
+			message,
+			collabId: collaboration.id,
+			timestamp,
+		}).then((_) => setState({ inputValue: '' }));
 	};
 
 	const watchCollabChanges = (id) => {
@@ -74,6 +84,10 @@ const CollaborationDetail = (props) => {
 				watchJoinedPeopleChanges(joinedPeople.map((jp) => jp.id));
 			}
 		);
+	};
+
+	const watchMessagesChanges = (collabId) => {
+		unsubscribeFromMessages.current = props.subToMessages(collabId);
 	};
 
 	const watchJoinedPeopleChanges = (ids) => {
@@ -143,17 +157,18 @@ const CollaborationDetail = (props) => {
 	);
 };
 
-const mapDispatchToProps = () => ({
-	subToCollaboration,
-	subToProfile,
-});
-
 const mapStateToProps = (state) => {
 	return {
 		collaboration: state.collaboration.joined,
 		joinedPeople: state.collaboration.joinedPeople,
 	};
 };
+
+const mapDispatchToProps = () => ({
+	subToCollaboration,
+	subToProfile,
+	subToMessages,
+});
 
 const Collaboration = withAuthorization(withRouter(CollaborationDetail));
 export default connect(mapStateToProps, mapDispatchToProps())(Collaboration);
