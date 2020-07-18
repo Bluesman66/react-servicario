@@ -138,7 +138,14 @@ const CollaborationDetail = (props) => {
 										</button>
 									</div>
 								)}
-								{true && <Timer />}
+								{collaboration.expiresAt && (
+									<Timer
+										seconds={
+											collaboration.expiresAt.seconds - Timestamp.now().seconds
+										}
+										timeOutCallback={() => alert('Times Out!')}
+									/>
+								)}
 							</div>
 							<div className="viewListContentChat">
 								<ChatMessages authUser={user} messages={messages} />
