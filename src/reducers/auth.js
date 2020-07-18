@@ -18,7 +18,6 @@ const initAuth = () => {
 			case SET_AUTH_USER:
 				return { ...action.user, services: [], messages: [] };
 			case FETCH_USER_SERVICES_SUCCESS:
-				debugger;
 				return { ...state, services: action.services };
 			case FETCH_USER_MESSAGES_SUCCESS:
 				return { ...state, messages: action.messages };
