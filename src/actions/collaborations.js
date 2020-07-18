@@ -73,3 +73,6 @@ export const subToMessages = (collabId) => (dispatch) => {
 		dispatch({ type: SET_COLLABORATION_MESSAGES, messages });
 	});
 };
+
+export const startCollaboration = (collabId, expiresAt) =>
+	api.startCollaboration(collabId, expiresAt);

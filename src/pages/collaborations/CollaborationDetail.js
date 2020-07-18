@@ -1,15 +1,22 @@
-import { ChatMessages, JoinedPeople, withAuthorization } from 'components';
+import {
+	ChatMessages,
+	JoinedPeople,
+	Timer,
+	withAuthorization,
+} from 'components';
 import React, { useEffect, useRef, useState } from 'react';
 import {
 	joinCollaboration,
 	leaveCollaboration,
 	sendChatMessage,
+	startCollaboration,
 	subToCollaboration,
 	subToMessages,
 	subToProfile,
 } from 'actions';
 import { useParams, withRouter } from 'react-router-dom';
 
+import { Timestamp } from 'db';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -97,7 +104,10 @@ const CollaborationDetail = (props) => {
 	};
 
 	const onStartCollaboration = (collaboration) => {
-		alert(`Starting collaboration: ${collaboration.title}`);
+		const { id, time } = collaboration;
+		const nowSeconds = Timestamp.now().seconds;
+		const expiresAt = new Timestamp(nowSeconds + time, 0);
+		startCollaboration(id, expiresAt);
 	};
 
 	return (
@@ -111,7 +121,6 @@ const CollaborationDetail = (props) => {
 						<div className="viewChatBoard">
 							<div className="headerChatBoard">
 								<div className="headerChatUser">
-									<span className="textHeaderChatBoard">{user.fullName}</span>{' '}
 									<img
 										className="viewAvatarItem"
 										src="https://i.imgur.com/cVDadwb.png"
@@ -119,14 +128,17 @@ const CollaborationDetail = (props) => {
 									/>
 									<span className="textHeaderChatBoard">{user.fullName}</span>
 								</div>
-								<div className="headerChatButton">
-									<button
-										onClick={() => onStartCollaboration(collaboration)}
-										className="button is-success"
-									>
-										Start Collaboration
-									</button>
-								</div>
+								{false && (
+									<div className="headerChatButton">
+										<button
+											onClick={() => onStartCollaboration(collaboration)}
+											className="button is-success"
+										>
+											Start Collaboration
+										</button>
+									</div>
+								)}
+								{true && <Timer />}
 							</div>
 							<div className="viewListContentChat">
 								<ChatMessages authUser={user} messages={messages} />
