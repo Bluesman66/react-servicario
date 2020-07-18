@@ -96,6 +96,10 @@ const CollaborationDetail = (props) => {
 		});
 	};
 
+	const onStartCollaboration = (collaboration) => {
+		alert(`Starting collaboration: ${collaboration.title}`);
+	};
+
 	return (
 		<div className="content-wrapper">
 			<div className="root">
@@ -106,12 +110,23 @@ const CollaborationDetail = (props) => {
 					<div className="viewBoard">
 						<div className="viewChatBoard">
 							<div className="headerChatBoard">
-								<img
-									className="viewAvatarItem"
-									src="https://i.imgur.com/cVDadwb.png"
-									alt="icon avatar"
-								/>
-								<span className="textHeaderChatBoard">{user.fullName}</span>
+								<div className="headerChatUser">
+									<span className="textHeaderChatBoard">{user.fullName}</span>{' '}
+									<img
+										className="viewAvatarItem"
+										src="https://i.imgur.com/cVDadwb.png"
+										alt="icon avatar"
+									/>
+									<span className="textHeaderChatBoard">{user.fullName}</span>
+								</div>
+								<div className="headerChatButton">
+									<button
+										onClick={() => onStartCollaboration(collaboration)}
+										className="button is-success"
+									>
+										Start Collaboration
+									</button>
+								</div>
 							</div>
 							<div className="viewListContentChat">
 								<ChatMessages authUser={user} messages={messages} />
