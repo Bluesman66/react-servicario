@@ -1,6 +1,7 @@
 import {
 	ChatMessages,
 	JoinedPeople,
+	Spinner,
 	Timer,
 	withAuthorization,
 } from 'components';
@@ -23,6 +24,7 @@ import moment from 'moment';
 const CollaborationDetail = (props) => {
 	const [state, setState] = useState({
 		inputValue: '',
+		reload: false,
 	});
 
 	const unsubscribeFromCollab = useRef(null);
@@ -80,7 +82,7 @@ const CollaborationDetail = (props) => {
 			message,
 			collabId: collaboration.id,
 			timestamp,
-		}).then((_) => setState({ inputValue: '' }));
+		}).then((_) => setState({ ...state, inputValue: '' }));
 	};
 
 	const watchCollabChanges = (id) => {
@@ -110,6 +112,26 @@ const CollaborationDetail = (props) => {
 		startCollaboration(id, expiresAt);
 	};
 
+	const getCollaborationStatus = (collaboration) => {
+		if (Object.keys(collaboration).length === 0) {
+			return 'loading';
+		}
+
+		if (!collaboration.expiresAt) {
+			return 'notStarted';
+		}
+		if (Timestamp.now().seconds < collaboration.expiresAt.seconds) {
+			return 'active';
+		} else {
+			return 'finished';
+		}
+	};
+
+	const status = getCollaborationStatus(collaboration);
+	if (status === 'loading') {
+		return <Spinner />;
+	}
+
 	return (
 		<div className="content-wrapper">
 			<div className="root">
@@ -128,7 +150,7 @@ const CollaborationDetail = (props) => {
 									/>
 									<span className="textHeaderChatBoard">{user.fullName}</span>
 								</div>
-								{false && (
+								{status === 'notStarted' && (
 									<div className="headerChatButton">
 										<button
 											onClick={() => onStartCollaboration(collaboration)}
@@ -138,13 +160,18 @@ const CollaborationDetail = (props) => {
 										</button>
 									</div>
 								)}
-								{collaboration.expiresAt && (
+								{status === 'active' && (
 									<Timer
 										seconds={
 											collaboration.expiresAt.seconds - Timestamp.now().seconds
 										}
-										timeOutCallback={() => alert('Times Out!')}
+										timeOutCallback={() => setState({ ...state, reload: true })}
 									/>
+								)}
+								{status === 'finished' && (
+									<span className="tag is-warning is-large">
+										Collaboration has been finished
+									</span>
 								)}
 							</div>
 							<div className="viewListContentChat">
@@ -153,14 +180,18 @@ const CollaborationDetail = (props) => {
 							</div>
 							<div className="viewBottom">
 								<input
-									onChange={(e) => setState({ inputValue: e.target.value })}
+									onChange={(e) =>
+										setState({ ...state, inputValue: e.target.value })
+									}
 									onKeyPress={onKeyboardPress}
+									disabled={status === 'finished' || status === 'notStarted'}
 									value={inputValue}
 									className="viewInput"
 									placeholder="Type your message..."
 								/>
 								<button
 									onClick={() => onSendMessage(inputValue)}
+									disabled={status === 'finished' || status === 'notStarted'}
 									className="button is-primary is-large"
 								>
 									Send
