@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ServiceItem, withAuthorization } from 'components';
+import { ServiceItem, Spinner, withAuthorization } from 'components';
 import { collaborate, fetchSentOffers } from 'actions';
 import { newCollaboration, newMessage } from 'helpers/offers';
 
@@ -30,11 +30,20 @@ const SentOffers = (props) => {
 		);
 	};
 
-	const { offers } = props;
+	const { offers, isFetching } = props;
+	if (isFetching) {
+		return <Spinner />;
+	}
+
 	return (
 		<div className="container">
 			<div className="content-wrapper">
 				<h1 className="title">Sent Offers</h1>
+				{!isFetching && offers.length === 0 && (
+					<span className="tag is-warning is-large">
+						You don't have any send offers :(
+					</span>
+				)}
 				<div className="columns">
 					{offers.map((offer) => (
 						<div key={offer.id} className="column is-one-third">
@@ -80,7 +89,10 @@ const SentOffers = (props) => {
 	);
 };
 
-const mapStateToProps = ({ offers }) => ({ offers: offers.sent });
+const mapStateToProps = ({ offers }) => ({
+	offers: offers.sent,
+	isFetching: offers.isFetching,
+});
 const SentOffersWithToast = withToastManager(SentOffers);
 
 export default withAuthorization(

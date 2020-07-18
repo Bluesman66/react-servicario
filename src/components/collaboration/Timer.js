@@ -15,8 +15,7 @@ const Timer = ({ seconds, timeOutCallback }) => {
 		}, 1000);
 
 		return () => clearInterval(intervalId);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [secondsLeft]);
+	}, [secondsLeft, timeOutCallback]);
 
 	return (
 		<div className="timer">

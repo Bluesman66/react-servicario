@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ServiceItem, withAuthorization } from 'components';
+import { ServiceItem, Spinner, withAuthorization } from 'components';
 import { changeOfferStatus, fetchReceivedOffers } from 'actions';
 
 import { connect } from 'react-redux';
@@ -25,12 +25,20 @@ const ReceivedOffers = (props) => {
 		if (status === 'declined') return 'is-danger';
 	};
 
-	const { offers } = props;
+	const { offers, isFetching } = props;
+	if (isFetching) {
+		return <Spinner />;
+	}
 
 	return (
 		<div className="container">
 			<div className="content-wrapper">
 				<h1 className="title">Received Offers</h1>
+				{!isFetching && offers.length === 0 && (
+					<span className="tag is-warning is-large">
+						You don't have any received offers :(
+					</span>
+				)}
 				<div className="columns">
 					{offers.map((offer) => (
 						<div key={offer.id} className="column is-one-third">
@@ -84,7 +92,10 @@ const ReceivedOffers = (props) => {
 	);
 };
 
-const mapStateToProps = ({ offers }) => ({ offers: offers.received });
+const mapStateToProps = ({ offers }) => ({
+	offers: offers.received,
+	isFetching: offers.isFetching,
+});
 
 export default withAuthorization(
 	connect(mapStateToProps, {
