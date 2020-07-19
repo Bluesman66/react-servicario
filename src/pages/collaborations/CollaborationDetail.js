@@ -78,11 +78,13 @@ const CollaborationDetail = (props) => {
 			content: inputValue.trim(),
 		};
 
-		sendChatMessage({
-			message,
-			collabId: collaboration.id,
-			timestamp,
-		}).then((_) => setState({ ...state, inputValue: '' }));
+		props
+			.sendChatMessage({ message, collabId: collaboration.id, timestamp })
+			.then((_) => this.setState({ ...state, inputValue: '' }))
+			.catch((error) => {
+				// this.setState({inputValue: ''})
+				alert(error);
+			});
 	};
 
 	const watchCollabChanges = (id) => {
@@ -217,6 +219,7 @@ const mapDispatchToProps = () => ({
 	subToCollaboration,
 	subToProfile,
 	subToMessages,
+	sendChatMessage,
 });
 
 const Collaboration = withAuthorization(withRouter(CollaborationDetail));

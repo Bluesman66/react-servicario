@@ -1,4 +1,5 @@
 import {
+	REMOVE_COLLABORATION_MESSAGE,
 	RESET_COLLABORATION_MESSAGES,
 	SET_COLLABORATION,
 	SET_COLLABORATION_JOINED_PEOPLE,
@@ -51,6 +52,8 @@ const initCollab = () => {
 					}
 				});
 				return newMessages;
+			case REMOVE_COLLABORATION_MESSAGE:
+				return state.filter((m) => m.id !== action.messageId);
 			case RESET_COLLABORATION_MESSAGES:
 				return [];
 			default:

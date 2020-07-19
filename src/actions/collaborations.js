@@ -3,6 +3,7 @@ import * as api from 'api';
 import {
 	COLLABORATION_CREATED_FROM_OFFER,
 	FETCH_USER_MESSAGES_SUCCESS,
+	REMOVE_COLLABORATION_MESSAGE,
 	RESET_COLLABORATION_MESSAGES,
 	SET_COLLABORATION,
 	SET_COLLABORATION_JOINED_PEOPLE,
@@ -65,7 +66,15 @@ export const subToProfile = (uid) => (dispatch) =>
 		dispatch({ type: UPDATE_COLLABORATION_USER, user })
 	);
 
-export const sendChatMessage = (message) => api.sendChatMessage(message);
+export const sendChatMessage = (message) => (dispatch) => {
+	return api.sendChatMessage(message).catch((err) => {
+		dispatch({
+			type: REMOVE_COLLABORATION_MESSAGE,
+			messageId: message.timestamp,
+		});
+		return Promise.reject('Collaboration is expired!');
+	});
+};
 
 export const subToMessages = (collabId) => (dispatch) => {
 	dispatch({ type: RESET_COLLABORATION_MESSAGES });
