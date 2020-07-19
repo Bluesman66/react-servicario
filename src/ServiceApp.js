@@ -3,24 +3,12 @@ import { Navbar, Sidebar, Spinner } from 'components';
 import React from 'react';
 import Routes from './Routes';
 import { connect } from 'react-redux';
-import { logout } from 'actions';
 
 const ServiceApp = ({ auth, dispatch }) => {
-	const handleLogout = (uid) => dispatch(logout(uid));
-
 	const renderApplication = (auth) => (
 		<React.Fragment>
-			<Navbar
-				auth={auth}
-				logout={() => handleLogout(auth.user.uid)}
-				id="navbar-main"
-				loadFresh
-			/>
-			<Navbar
-				auth={auth}
-				logout={() => handleLogout(auth.user.uid)}
-				id="navbar-clone"
-			/>
+			<Navbar auth={auth} id="navbar-main" loadFresh />
+			<Navbar auth={auth} id="navbar-clone" />
 			<Sidebar />
 			<Routes />
 		</React.Fragment>

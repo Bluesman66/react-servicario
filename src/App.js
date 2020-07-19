@@ -27,6 +27,9 @@ const App = () => {
 					subscribeToMessages(authUser.uid)
 				);
 			}
+			if (!authUser) {
+				unsubscribeMessages.current && unsubscribeMessages.current();
+			}
 		});
 		return () => {
 			unsubscribeAuth.current();

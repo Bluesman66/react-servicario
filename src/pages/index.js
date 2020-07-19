@@ -2,6 +2,7 @@ import CollaborationDetail from './collaborations/CollaborationDetail';
 import Faq from './Faq/Faq';
 import Home from './Home/Home';
 import Login from './Login/Login';
+import Logout from './Logout/Logout';
 import Profile from './Profile/Profile';
 import ReceivedCollaborations from './collaborations/ReceivedCollaborations';
 import ReceivedOffers from './offers/ReceivedOffers';
@@ -28,4 +29,5 @@ export {
 	SentOffers,
 	ReceivedCollaborations,
 	CollaborationDetail,
+	Logout,
 };

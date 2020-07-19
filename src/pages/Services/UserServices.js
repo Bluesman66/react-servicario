@@ -4,7 +4,7 @@ import { ServiceItem, withAuthorization } from 'components';
 import { fetchUserServices } from 'actions';
 
 const UserServices = (props) => {
-	const { services } = props.auth.user;
+	const { services } = props.auth;
 
 	useEffect(() => {
 		const {

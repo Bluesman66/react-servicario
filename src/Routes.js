@@ -3,6 +3,7 @@ import {
 	Faq as FaqPage,
 	Home as HomePage,
 	Login as LoginPage,
+	Logout as LogoutPage,
 	Profile as ProfilePage,
 	ReceivedCollaborations as ReceivedCollaborationsPage,
 	ReceivedOffers as ReceivedOffersPage,
@@ -23,6 +24,7 @@ const Routes = () => (
 		<Route path="/secret" component={SecretPage} />
 		<Route path="/register" component={RegisterPage} />
 		<Route path="/login" component={LoginPage} />
+		<Route path="/logout" component={LogoutPage} />
 		<Route path="/collaborations/me" component={ReceivedCollaborationsPage} />
 		<Route path="/collaborations/:id" component={CollaborationDetailPage} />
 		<Route path="/offers/sent" component={SentOffersPage} />
