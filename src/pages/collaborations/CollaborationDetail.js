@@ -184,14 +184,14 @@ const CollaborationDetail = (props) => {
 										setState({ ...state, inputValue: e.target.value })
 									}
 									onKeyPress={onKeyboardPress}
-									disabled={status === 'finished' || status === 'notStarted'}
+									//disabled={status === 'finished' || status === 'notStarted'}
 									value={inputValue}
 									className="viewInput"
 									placeholder="Type your message..."
 								/>
 								<button
 									onClick={() => onSendMessage(inputValue)}
-									disabled={status === 'finished' || status === 'notStarted'}
+									//disabled={status === 'finished' || status === 'notStarted'}
 									className="button is-primary is-large"
 								>
 									Send
